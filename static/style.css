@@ -1,0 +1,200 @@
+/* Reset de margen y relleno */
+body, h1, h2, h3, p, ul, li, form, label, input, button {
+    margin: 0;
+    padding: 0;
+}
+
+/* Fuente y fondo básico */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('./images/SanMiParque.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* Estilos para el título */
+h1 {
+    text-align: center;
+    padding: 0.001%;
+    background-color: #4caf50; /* Verde más intenso para el título */
+    color: white;
+}
+
+/* Estilos para el formulario */
+form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    padding: 5px;
+    width: 300px;
+}
+
+button[type="submit"] {
+    padding: 5px 15px;
+    background-color: #4caf50; /* Verde más intenso para el botón */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049; /* Un tono más oscuro al pasar el cursor */
+}
+
+/* Estilos para la conversación */
+.conversation {
+    width: 75%;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 20px 2.5%; /* Add vertical margin */
+    padding: 0px;
+    font-size: 30px;
+    background-color: #fff;
+    border: 1px solid #9ccc9c;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    float: left;
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+
+}
+
+.message {
+    margin: 5px 0;
+    padding: 5px;
+    border-bottom: 1px solid #9ccc9c;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Sombra más ligera para los mensajes */
+}
+/* Animación intermitente para los contenidos */
+.message-content {
+    animation: blink 1.5s infinite; /* Animación de 1.5 segundos que se repite infinitamente */
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1; /* Visible al principio y al final de la animación */
+    }
+    50% {
+        opacity: 0; /* Invisible en el punto medio de la animación */
+    }
+}
+
+/* Estilos para los mensajes de Maria */
+.message.maria-background {
+    background-color: #f8ecef; /* Color pastel de rosa */
+}
+
+/* Estilos para los mensajes de Juan */
+.message.juan-background {
+    text-align: right;
+    background-color: #dee6d6; /* Color verdoso pastel */
+}
+
+.message.elena-background {
+    background-color: #c5bfe1; /* Color pastel */
+}
+
+/* Ajusta el tamaño del cuadro de mensajes */
+/* Ajusta el tamaño del cuadro de mensajes */
+/* Estilos para la conversación (mitad izquierda) */
+.conversation {
+    width: 90%;
+    height: 100vh;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    background-color: #fff;
+    border: 1px solid #9ccc9c;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Sombra 3D suave */
+    margin-right: 2.5%; /* Espacio en el lado derecho */
+    margin-left: 5%; /* Espacio en el lado izquierdo */
+}
+
+
+
+.image-text {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px; /* Ajusta el tamaño de la letra según tus preferencias */
+    color: rgb(28, 4, 211); /* Cambia el color del texto si lo deseas */
+    font-weight: bold; /* Agregamos negrita al texto */
+
+}
+.message.default-background {
+    color: rgba(0, 0, 0, 0.751);
+    font-size: 120%;
+    font-weight: bold;
+    font-style: italic; /* Agregamos estilo de letra itálica */
+}
+.bad-option,
+.good-option,
+.first {
+    font-size: 16px; /* Ajusta el valor según tus preferencias */
+    padding: 10px 20px; 
+    background-color: #f09d9d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.good-option{
+    background-color: #8de3fb;
+}
+
+
+.bad-option {
+    position: absolute;
+    left: 19%;
+    top: 8%;
+}
+
+.good-option {
+    position: absolute;
+    right: 19%;
+    top: 8%;
+}
+
+.first {
+    background-color: #ddf3b7;
+}
+
+/* ... (otros estilos) */
+
+/* Estilos para las imágenes en la parte inferior */
+.images-bottom {
+    display: flex; /* Utilizamos flexbox para alinear los elementos */
+    justify-content: space-between; /* Espacio entre los elementos */
+    align-items: flex; /* Alineamos los elementos en la parte superior */
+    padding: 50px; /* Espacio entre las imágenes y los bordes */
+    background-image: url('./images/ImagenSanMiguel.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.images-bottom-center img {
+    max-width: 100%; /* Tamaño más grande para la imagen de Elena */
+    max-height: 100%; /* Tamaño más grande para la imagen de Elena */
+    
+}
+.images-bottom-right img {
+    max-width: 80%; /* Tamaño más grande para la imagen de Elena */
+    max-height: 80%; /* Tamaño más grande para la imagen de Elena */
+}
+.images-bottom-left img {
+    max-width: 250%; /* Tamaño más grande para la imagen de Elena */
+    max-height: 250%; /* Tamaño más grande para la imagen de Elena */
+}

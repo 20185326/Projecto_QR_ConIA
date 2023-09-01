@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversación en el Parque</title>
+    <link rel="stylesheet" href="../static/style.css">
+    
+</head>
+    <body>    
+        <h1>Conversación en el Parque</h1>
+        <div class="conversation">
+            <div class="first">
+                <form action="/procesar" method="post">
+                    <input type="hidden" id="option_value" name="option_value" value="">
+                    <div class="input-section">
+                            <label for="user_input">Ingresa Respuesta Personalizada:</label>
+                            <input type="text" id="user_input" name="user_input">
+                            <button type="submit">Enviar</button>
+                    </div>
+                    <div class="bad-option-container">
+                        <button type="button" class="bad-option" id="bad-button">Click para actuar mal</button>
+                                        </div>
+                    <div class="good-option-container">
+                        <button type="button" class="good-option" id="good-button">Click para actuar bien</button>
+                        </div>
+                </form>
+            </div>
+            
+            <div class="maria" answer="{{ mariaAction }}">
+            </div>
+            <div class="juan" answer="{{ juanAction }}">
+            </div>
+            <div class="elena" answer="{{ elenaAction }}">
+            </div>
+            {% for mensaje in historial %}
+                {% if mensaje.strip().startswith("Maria:") %}
+                    <div class="message maria-background">{{ mensaje }}</div>
+                {% elif mensaje.strip().startswith("Juan:") %}
+                    <div class="message juan-background">{{ mensaje }}</div>
+                {% elif mensaje.strip().startswith("Elena:") %}
+                    <div class="message elena-background">{{ mensaje }}</div>
+                {% elif mensaje.strip() != "" %}
+                    <div class="message default-background">{{ mensaje }}</div>
+                {% endif %}
+            {% endfor %}
+            <div class="images-bottom">
+                <div class="images-bottom-left">
+                    <img src="../static/images/MariaFeliz.png" alt="Maria">
+                </div>
+                <div class="images-bottom-center">
+                    <img src="../static/images/ElenaFeliz.png" alt="Elena" style="display: none;">
+                </div>
+                <div class="images-bottom-right">
+                    <img src="../static/images/JuanBueno.png" alt="Juan" style="display: none;">
+                </div>
+            </div>
+        </div>               
+        <script>
+            // Activar la imagen de Elena cuando se detecta "Elena" en el mensaje
+            const mensajes = document.querySelectorAll(".message");
+            //Juan
+            const juanElement = document.querySelector(".juan");
+            const juanActionText = juanElement.getAttribute("answer");
+            //maria
+            const mariaElement = document.querySelector(".maria");
+            const mariaActionText = mariaElement.getAttribute("answer");         
+            //maria
+            const elenaElement = document.querySelector(".elena");
+            const elenaActionText = elenaElement.getAttribute("answer");      
+            mensajes.forEach(mensaje => {
+                console.log(mensaje)
+                if (mensaje.textContent.includes("Oráculo")) {
+                    document.querySelector(".images-bottom-left img").style.display = "none";
+                    document.querySelector(".images-bottom-center img").src = "../static/images/Oraculo.png";
+                    document.querySelector(".images-bottom-center img").style.display = "block";
+                    if (juanActionText.includes("bueno") ) {
+                        document.querySelector(".images-bottom-right img").src = "../static/images/JuanBueno.png";
+                        document.querySelector(".images-bottom-right img").style.display = "block";
+                    }
+                    else if (juanActionText.includes("malo") ) {
+                        document.querySelector(".images-bottom-right img").src = "../static/images/JuanMalo.png";
+                        document.querySelector(".images-bottom-right img").style.display = "block";
+                    }      
+
+                }else {
+                    console.log(juanActionText)
+                    console.log(mariaActionText)
+                    console.log(elenaActionText)
+                    if (mensaje.textContent.includes("Maria") && mariaActionText.includes("feliz")) {
+                        document.querySelector(".images-bottom-left img").src = "../static/images/MariaFeliz.png";
+                        document.querySelector(".images-bottom-left img").style.display = "block";
+                    }
+                    else if(mensaje.textContent.includes("Maria") && mariaActionText.includes("triste")) {
+                        document.querySelector(".images-bottom-left img").src = "../static/images/MariaTriste.png";
+                        document.querySelector(".images-bottom-left img").style.display = "block";
+                    }
+                    if (mensaje.textContent.includes("Juan") && juanActionText.includes("bueno") ) {
+                        document.querySelector(".images-bottom-right img").src = "../static/images/JuanBueno.png";
+                        document.querySelector(".images-bottom-right img").style.display = "block";
+                    }
+                    else if (mensaje.textContent.includes("Juan") && juanActionText.includes("malo") ) {
+                        document.querySelector(".images-bottom-right img").src = "../static/images/JuanMalo.png";
+                        document.querySelector(".images-bottom-right img").style.display = "block";
+                    }                   
+                    if (mensaje.textContent.includes("Elena") && elenaActionText.includes("feliz") ) {
+                        document.querySelector(".images-bottom-center img").src = "../static/images/ElenaFeliz.png";
+                        document.querySelector(".images-bottom-center img").style.display = "block";
+                    }
+                    else if (mensaje.textContent.includes("Elena") && elenaActionText.includes("amarga") ) {
+                        document.querySelector(".images-bottom-center img").src = "../static/images/ElenaAmarga.png";
+                        document.querySelector(".images-bottom-center img").style.display = "block";
+                    }
+                }
+            });
+            // Activar la imagen de Elena cuando se detecta "Elena" en el mensaje
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const buenoButton = document.getElementById("good-button");
+                const maloButton = document.getElementById("bad-button");
+                const userForm = document.querySelector("form");
+            
+                buenoButton.addEventListener("click", function() {
+                    // Set a hidden input field to indicate the option selected
+                    document.getElementById("option_value").value = "Bueno";
+                    // Submit the form
+                    userForm.submit();
+                });
+            
+                maloButton.addEventListener("click", function() {
+                    // Set a hidden input field to indicate the option selected
+                    document.getElementById("option_value").value = "Malo";
+                    // Submit the form
+                    userForm.submit();
+                });
+            });
+        </script>        
+    </body>
+</html>
