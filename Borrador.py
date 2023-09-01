@@ -1,8 +1,9 @@
 from flask import Flask,render_template,request
 import openai
+import asyncio
 import random
-from Modulacion.FlujosConversacionales.conversations import *
-from Modulacion.FlujosConversacionales.evaluador import *
+from conversations import *
+
 app=Flask(__name__)
 contador=0
 historial=" "
@@ -21,16 +22,19 @@ situaciones = [
     "Maria ve a un niño llamado Juan usando una bicicleta eléctrica a alta velocidad en un área designada para caminar."
 ]
 situacionInicial = random.choice(situaciones)
-openai.api_key = obtenerModelo("openai")
+
+openai.api_key = "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"
+
+
 @app.route('/')
-def principal():
+async def principal():
     global situacionInicial
     global historial
-    respuestaIA =  generate_response_maria(situacionInicial)
+    respuestaIA = await generate_response_maria(situacionInicial)
+    print(respuestaIA)
     respuestaIA=situacionInicial+"\n"+ respuestaIA 
-    historial=respuestaIA
     historial_dividido = historial.split('\n')
-    print(historial_dividido)
+    historial=respuestaIA
     return render_template("index.html", historial=historial_dividido)
 
 @app.route('/procesar', methods=['POST'])
@@ -56,7 +60,7 @@ def procesar():
             mensaje_juan = generate_response_juan(historial,option_value)
             interaccion=interaccion+"\nJuan: " + mensaje_juan
             historial_conversacion = historial + "\nJuan: " + mensaje_juan
-            respuesta_maria =  generate_response_maria(historial_conversacion)
+            respuesta_maria = generate_response_maria(historial_conversacion)
             interaccion+=respuesta_maria
             # Actualizar el historial
             historial = historial_conversacion + "\n" + respuesta_maria
@@ -85,7 +89,7 @@ def procesar():
         if(contador<=4):
             historial_conversacion = historial + "\nJuan: " + user_input
             interaccion=interaccion+"\nJuan: " + user_input
-            respuesta_maria =  generate_response_maria(historial_conversacion)
+            respuesta_maria = generate_response_maria(historial_conversacion)
             interaccion+=respuesta_maria
             # Actualizar el historial
             historial = historial_conversacion + "\n" + respuesta_maria
